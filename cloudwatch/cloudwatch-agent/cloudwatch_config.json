@@ -1,0 +1,51 @@
+{
+    "metrics": {
+        "namespace": "EC2-AEM-DEV",
+        "append_dimensions": {
+            "InstanceId": "${aws:InstanceId}"
+        },
+        "metrics_collected": {
+            "mem": {
+                "measurement": [{
+                        "name": "mem_used_percent",
+                        "unit": "Percent"
+                    }
+                ],
+                "metrics_collection_interval": 60
+            },
+            "disk": {
+                "measurement": [{
+                        "name": "disk_used_percent",
+                        "unit": "Percent"
+                    }
+                ],
+                "metrics_collection_interval": 60
+            }
+        }
+    },
+    "logs": {
+        "logs_collected": {
+            "files": {
+                "collect_list": [{
+                        "file_path": "/aem/crx-quickstart/logs/error.log",
+                        "log_group_name": "aem-author-error-logs",
+                        "log_stream_name": "{instance_id}/{ip_address}",
+                        "timezone": "Local"
+                    }, {
+                        "file_path": "/aem/crx-quickstart/logs/access.log",
+                        "log_group_name": "aem-author-access-logs",
+                        "log_stream_name": "{instance_id}/{ip_address}",
+                        "timezone": "Local"
+                    }, {
+                        "file_path": "/aem/crx-quickstart/logs/request.log",
+                        "log_group_name": "aem-author-request-logs",
+                        "log_stream_name": "{instance_id}/{ip_address}",
+                        "timezone": "Local"
+                    }
+                ]
+            }
+        },
+        "log_stream_name": "stream-event-log",
+        "force_flush_interval": 15
+    }
+}
